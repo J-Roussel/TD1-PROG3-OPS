@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: S3 Storage Stack 
+
+Parameters:
+  Name:
+    Type: String
+    Default: Roussel-STD21050
+
+Resources:
+  Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: STD21050
+  BucketNameParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /S3Stack/BucketName
+      Type: String
+      Value: !Ref BucketName
+  BucketArnParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /S3Stack/BucketArn
+      Type: String
+      Value: !GetAtt Bucket.Arn
